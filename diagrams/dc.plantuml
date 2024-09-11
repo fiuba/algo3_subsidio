@@ -1,0 +1,56 @@
+@startuml
+
+class Viaje {
+    - fecha
+    - distancia
+    - numeroTarjeta
+
+    + multiplicarConEnPor(numero, fechaDesde, fechaHasta, precioPorDistancia)
+    + multiplicarPor(numero, precioPorDistancia)
+}
+class Tarjeta {
+    - numero
+    - precioPorDistancia
+
+    + Tarjeta(numero)
+    + calcularElPago(unViaje)
+}
+
+class Exento {
+    - fechaDesde
+    - fechaHasta
+
+    + calcularElPago(unViaje)
+}
+
+note left of Exento::calcularElPago
+^unViaje.multiplicarConEnPor(numero, fD, fH, precioPorDistancia) +
+ trabajador.multiplicarPor(numero, precioPorDistancia)
+end note
+
+class Trabajador {
+    + calcularElPago(unViaje)
+}
+note right of Trabajador::calcularElPago
+^unViaje.multiplicarConPor(numero, precioPorDistancia)
+end note
+
+class Usuario {
+    + calcularPagos(viajes)
+}
+
+note right of Usuario::calcularPagos
+for(Viaje v : viajes)
+    for(Tarjeta t : tarjetas)
+        total = total + t.calcularElPagoEn(v)
+end note
+
+Usuario *- "1..*" Tarjeta
+
+Tarjeta <|.. Exento
+Tarjeta <|.. Trabajador
+
+Exento o- "1" Trabajador
+
+Viaje "<<use>>" <. Usuario
+@enduml
