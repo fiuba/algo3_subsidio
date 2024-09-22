@@ -1,5 +1,7 @@
 @startuml
 
+hide circle
+
 class Viaje {
     - fecha
     - distancia
@@ -45,12 +47,12 @@ for(Viaje v : viajes)
         total = total + t.calcularElPagoEn(v)
 end note
 
-Usuario *- "1..*" Tarjeta
+Usuario o- "1..*" Tarjeta
 
 Tarjeta <|.. Exento
 Tarjeta <|.. Trabajador
 
-Exento o- "1" Trabajador
+Exento *- "1" Trabajador
 
 Viaje "<<use>>" <. Usuario
 @enduml

@@ -1,0 +1,21 @@
+@startuml
+
+hide circle
+skinparam classAttributeIconSize 0
+
+class Precio {
+    - valor : int
+    - decimales : int
+
+    + Precio(valor, decimales : int)
+    + sumar(otro : Precio) : Precio
+}
+
+class Calculadora {
+
+    + sumar(p1, p2 : Precio) : Precio
+}
+
+Calculadora ..> Precio: "<<use>>"
+
+@enduml

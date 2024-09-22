@@ -1,0 +1,15 @@
+@startuml
+
+title "Polimorfísmo de tarjeta\n"
+
+":TestCase" -> "j :Usuario": new (t1, t2)
+
+":TestCase" -> "j :Usuario": calcularPagos(viajes)
+"j :Usuario" ->  "t1 :Trabajador": calcularElPagoEn(viaje)
+"t1 :Trabajador" -> ":Viaje": multiplicarConPor(numeroTarjeta, precioPorDistancia)
+return
+
+"t1 :Trabajador" --> "j :Usuario": [calculo]
+"j :Usuario" --> ":TestCase": [acumulado]
+
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+
+create "t1 :Exento"
+":TestCase" -> "t1 :Exento": new("id1")
+create ":Trabajador"
+"t1 :Exento" -> ":Trabajador": new (numeroTarjeta)
+create "t2 :Trabajador"
+":TestCase" -> "t2 :Trabajador": new("id2")
+
+create "v1 :Viaje"
+":TestCase" -> "v1 :Viaje": new("2024/09/01", 10, "id1")
+create "v2 :Viaje"
+":TestCase" -> "v2 :Viaje": new("2024/09/20", 20, "id1")
+create "v3 :Viaje"
+":TestCase" -> "v3 :Viaje": new("2024/09/22", 20, "id2")
+
+create "j :Usuario"
+":TestCase" -> "j :Usuario": new (t1, t2)
+
+":TestCase" -> "j :Usuario": calcularPagos(viajes)
+loop [para cada viaje]
+    loop [para cada tarjeta]
+        "j :Usuario" -> "tarjeta :Tarjeta": calcularElPagoEn(viane)
+        "tarjeta :Tarjeta" -> "vn :Viaje": multiplicarConPor(numeroTarjeta, precioPorDistancia)
+        return [distancia * precioPorDistancia]
+    end
+end
+
+"j :Usuario" --> ":TestCase": [acumulado]
+
+@enduml
